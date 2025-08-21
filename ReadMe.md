@@ -4,7 +4,7 @@ A lightweight ASP.NET Core MVC web application using SQLite as the backend datab
 
 ---
 
-## 🚀 Features
+## Features
 
 - ASP.NET Core MVC architecture
 - SQLite database integration via Entity Framework Core
@@ -14,7 +14,7 @@ A lightweight ASP.NET Core MVC web application using SQLite as the backend datab
 
 ---
 
-## 🧰 Tech Stack
+## Tech Stack
 
 - **Framework**: ASP.NET Core 8.0
 - **Database**: SQLite (`app.db`)
@@ -25,7 +25,7 @@ A lightweight ASP.NET Core MVC web application using SQLite as the backend datab
 
 ---
 
-## 🛠️ Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -43,13 +43,20 @@ cd AspNetCoreDemo
 # Restore dependencies
 dotnet restore
 
+# Use this code the generate the migration file if not generated (optional code)
+# dotnet ef migrations add InitialCreate
+
 # Apply migrations and create database
 dotnet ef database update
 
 # Run the app
 dotnet run
 
-# Project Structure
+```
+
+## Project Structure
+
+```
 AspNetCoreDemo/
 ├── Controllers/         # MVC controllers
 ├── Models/              # Entity models
@@ -60,4 +67,4 @@ AspNetCoreDemo/
 ├── app.db               # SQLite database file
 ├── Program.cs           # App entry point
 ├── appsettings.json     # Configuration
-
+```
