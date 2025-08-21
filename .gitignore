@@ -1,0 +1,49 @@
+# Build and debug folders
+bin/
+obj/
+
+## Build artifacts
+*.dll
+*.exe
+*.pdb
+*.cache
+*.log
+
+## User-specific files
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## SQLite database
+app.db
+
+## Entity Framework Migrations (optional)
+Migrations/
+
+## ASP.NET secrets
+secrets.json
+
+## Configuration files
+appsettings.Development.json
+appsettings.Local.json
+
+## IDE-specific
+*.ide
+.idea/
+*.vs/
+*.swp
+
+## OS-specific
+.DS_Store
+Thumbs.db
+
+## Logs and temp
+*.log
+*.tmp
+*.bak
+
+## NuGet packages
+*.nupkg
+packages/

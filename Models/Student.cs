@@ -1,6 +1,6 @@
-namespace AspNetCoreDemo.Models
+namespace AspNetCoreDemo.Models;
 
-    public class Student
+public class Student
     {
         public int Id { get; set; }          // Primary key
         public string Name { get; set; }     // Student's name
