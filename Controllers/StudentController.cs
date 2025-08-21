@@ -1,107 +1,113 @@
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using AspNetCoreDemo.Data; // Adjust namespace if needed
+using AspNetCoreDemo.Models; // Adjust namespace if needed
+using System.Threading.Tasks;
 namespace AspNetCoreDemo.Controllers;
-public class ProductsController : Controller
+
+public class StudentsController : Controller
+{
+    private readonly AppDbContext _context;
+
+    public StudentsController(AppDbContext context)
     {
-        private readonly AppDbContext _context;
+        _context = context;
+    }
 
-        public ProductsController(AppDbContext context)
+    // GET: Students
+    public async Task<IActionResult> Index()
+    {
+        var students = await _context.Students.ToListAsync();
+        return View(students);
+    }
+
+    // GET: Students/Details/5
+    public async Task<IActionResult> Details(int? id)
+    {
+        if (id == null) return NotFound();
+
+        var student = await _context.Students.FirstOrDefaultAsync(m => m.Id == id);
+        if (student == null) return NotFound();
+
+        return View(student);
+    }
+
+    // GET: Students/Create
+    public IActionResult Create()
+    {
+        return View();
+    }
+
+    // POST: Students/Create
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Create(Student student)
+    {
+        if (ModelState.IsValid)
         {
-            _context = context;
-        }
-
-        // GET: Products
-        public async Task<IActionResult> Index()
-        {
-            var products = await _context.Products.ToListAsync();
-            return View(products);
-        }
-
-        // GET: Products/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null) return NotFound();
-
-            var product = await _context.Products.FirstOrDefaultAsync(m => m.Id == id);
-            if (product == null) return NotFound();
-
-            return View(product);
-        }
-
-        // GET: Products/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Products/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Product product)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(product);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(product);
-        }
-
-        // GET: Products/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null) return NotFound();
-
-            var product = await _context.Products.FindAsync(id);
-            if (product == null) return NotFound();
-
-            return View(product);
-        }
-
-        // POST: Products/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Product product)
-        {
-            if (id != product.Id) return NotFound();
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(product);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!_context.Products.Any(e => e.Id == product.Id))
-                        return NotFound();
-                    else
-                        throw;
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            return View(product);
-        }
-
-        // GET: Products/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null) return NotFound();
-
-            var product = await _context.Products.FirstOrDefaultAsync(m => m.Id == id);
-            if (product == null) return NotFound();
-
-            return View(product);
-        }
-
-        // POST: Products/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var product = await _context.Products.FindAsync(id);
-            _context.Products.Remove(product);
+            _context.Add(student);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        return View(student);
     }
+
+    // GET: Students/Edit/5
+    public async Task<IActionResult> Edit(int? id)
+    {
+        if (id == null) return NotFound();
+
+        var student = await _context.Students.FindAsync(id);
+        if (student == null) return NotFound();
+
+        return View(student);
+    }
+
+    // POST: Students/Edit/5
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(int id, Student student)
+    {
+        if (id != student.Id) return NotFound();
+
+        if (ModelState.IsValid)
+        {
+            try
+            {
+                _context.Update(student);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!_context.Students.Any(e => e.Id == student.Id))
+                    return NotFound();
+                else
+                    throw;
+            }
+            return RedirectToAction(nameof(Index));
+        }
+        return View(student);
+    }
+
+    // GET: Students/Delete/5
+    public async Task<IActionResult> Delete(int? id)
+    {
+        if (id == null) return NotFound();
+
+        var student = await _context.Students.FirstOrDefaultAsync(m => m.Id == id);
+        if (student == null) return NotFound();
+
+        return View(student);
+    }
+
+    // POST: Students/Delete/5
+    [HttpPost, ActionName("Delete")]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> DeleteConfirmed(int id)
+    {
+        var student = await _context.Students.FindAsync(id);
+        _context.Students.Remove(student);
+        await _context.SaveChangesAsync();
+        return RedirectToAction(nameof(Index));
+    }
+}

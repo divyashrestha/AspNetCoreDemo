@@ -18,9 +18,10 @@ obj/
 
 ## SQLite database
 app.db
+app.*
 
 ## Entity Framework Migrations (optional)
-Migrations/
+# Migrations/
 
 ## ASP.NET secrets
 secrets.json
