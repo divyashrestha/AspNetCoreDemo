@@ -1,10 +1,33 @@
-namespace AspNetCoreDemo.Models;
+using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class Student
+namespace AspNetCoreDemo.Models
+{
+    public class Student
     {
-        public int Id { get; set; }          // Primary key
-        public string Name { get; set; }     // Student's name
-        public int Age { get; set; }         // Student's age
-        public string Email { get; set; }    // Optional: contact info
-        public DateTime EnrollmentDate { get; set; } // Optional: track when they joined
+        [Key]
+        public int Id { get; set; }
+
+        [Required(ErrorMessage = "Name is required")]
+        public string Name { get; set; }
+
+        [Required(ErrorMessage = "Age is required")]
+        [Range(1, 120, ErrorMessage = "Age must be between 1 and 120")]
+        public int Age { get; set; }
+
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Invalid email format")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "Enrollment date is required")]
+        [DataType(DataType.Date)]
+        public DateTime EnrollmentDate { get; set; }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public DateTime CreatedAt { get; set; }
+
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime UpdatedAt { get; set; }
     }
+}
